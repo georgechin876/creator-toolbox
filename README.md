@@ -7,7 +7,7 @@ Free, browser-based starter tools for creators publishing on YouTube, TikTok, In
 - Hook Generator
 - Video Idea Generator
 - Title Generator
-- Weekly Content Planner
+- Shorts Planner
 - Description & Hashtags
 - Script Prompt Builder
 - Save, copy, and download generated drafts
@@ -18,9 +18,9 @@ https://georgechin876.github.io/creator-toolbox/
 
 ## How it works
 
-Creator Toolbox is a static HTML, CSS, and JavaScript website. Drafts are generated in the visitor's browser using built-in templates. It does not currently connect to an AI API, social platform account, or analytics service.
+Creator Toolbox is a static HTML, CSS, and JavaScript website. Drafts are generated in the visitor's browser using built-in templates. It is not an AI chatbot and does not connect to an AI API, social platform account, or analytics service. No account or subscription is required to use the tools.
 
-Saved work uses the browser's local storage on that device. It is not synced between devices. Visitors can download their saved work.
+Saved work uses the browser's local storage on that device. It is not synced between devices. Visitors can download their saved work. Results are draft starting points; users should review accuracy, originality, copyright, and platform rules before publishing. The site does not promise views, followers, or income.
 
 ## Privacy
 
