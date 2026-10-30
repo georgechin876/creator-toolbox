@@ -72,7 +72,17 @@ function makeHooks(){let t=val('hookTopic'),a=val('hookAudience')||'your audienc
 '“Here are 3 things about '+t.toLowerCase()+' that are worth knowing.”'
 ].join('\n\n')+platformContext())}
 function makeIdeas(){let n=val('ideaNiche'),f=val('ideaFormat');if(!need(n,'your channel topic'))return;let forms=['A beginner’s guide to {n}','3 common mistakes people make with {n}','One small change that can improve your {n}','What I would do first if I were starting {n} today','Myth vs. fact: what people get wrong about {n}','A simple checklist for better {n}','Answering the most common question about {n}','Before you try {n}, know this'];show('ideaOut',forms.map((x,i)=>(i+1)+'. '+x.replaceAll('{n}',n)+(f==='Short-form vertical video'?' — Short-form idea':'')).join('\n')+platformContext())}
-function makeTitles(){let t=val('titleTopic'),s=val('titleStyle');if(!need(t,'your video topic'))return;let a=s==='How-to'?['How to '+t,'A simple step-by-step guide to '+t,'Start here: '+t]:s==='List'?['5 things to know about '+t,'3 simple ways to approach '+t,'The beginner’s checklist for '+t]:s==='Direct and simple'?[t,'A practical guide to '+t,'What you need to know about '+t]:['The small detail about '+t+' people often miss','I tried a simpler approach to '+t,'Could this make '+t+' easier?'];show('titleOut',a.map((x,i)=>(i+1)+'. '+x).join('\n')+platformContext())}
+function makeTitles(){let t=val('titleTopic'),s=val('titleStyle'),p=selectedPlatform();if(!need(t,'your video topic'))return;let a;
+if(p==='YouTube'){
+a=s==='How-to'?['How to '+t+': A Simple Step-by-Step Guide','How to '+t+' for Beginners','The Best Way to '+t+' (Step by Step)']:s==='List'?['5 Things to Know About '+t,'3 Ways to Improve '+t,'The Beginner’s Checklist for '+t]:s==='Direct and simple'?[' '+t,'A Practical Guide to '+t,'What You Need to Know About '+t]:['How '+t+' Works: What Beginners Should Know','The Detail About '+t+' Many People Miss','Before You Try '+t, ''];
+}else if(p==='TikTok'){
+a=s==='How-to'?['Try This If You Want to '+t,'Here’s the Quickest Way to Start '+t,'Do This Before You '+t]:s==='List'?['3 Things I Wish I Knew About '+t,'Wait—These '+t+' Tips Actually Help','Don’t Miss These '+t+' Tips']:s==='Direct and simple'?['Let’s Talk About '+t,'A Quick Tip for '+t,'Here’s What Helped With '+t]:['I Didn’t Expect This About '+t,'You Might Be Doing '+t+' the Hard Way','Nobody Told Me This About '+t];
+}else if(p==='Instagram'){
+a=s==='How-to'?['Save This: How to '+t,'A Simple Step-by-Step for '+t,'Your Quick Guide to '+t]:s==='List'?['3 Tips to Save for Later: '+t,'Your '+t+' Checklist','5 Helpful Reminders About '+t]:s==='Direct and simple'?['A Simple Guide to '+t,'Let’s Make '+t+' Easier','The Basics of '+t]:['A Little Reminder About '+t,'One Thing to Remember About '+t,'Save This Idea for '+t];
+}else{
+a=s==='How-to'?['A Simple Way to '+t,'How Do You '+t+'? Start Here','Let’s Make '+t+' Easier']:s==='List'?['3 Helpful Things to Know About '+t,'What Would You Add to This '+t+' List?','A Few Practical Tips for '+t]:s==='Direct and simple'?['Let’s Talk About '+t,'A Practical Look at '+t,'What You Should Know About '+t]:['Have You Tried This Approach to '+t+'?','What Most People Overlook About '+t,'What’s Your Biggest Question About '+t+'?'];
+}
+show('titleOut','PLATFORM: '+p+'\\nTITLE OPTIONS\\n'+a.filter(Boolean).map((x,i)=>(i+1)+'. '+x).join('\\n')+'\\n\\nTip: Choose the title that accurately matches what viewers will see in your video.');}
 function makePlan(){let n=val('planNiche'),g=val('planGoal'),p=selectedPlatform();if(!need(n,'your channel topic'))return;
 const plans={
 YouTube:[
