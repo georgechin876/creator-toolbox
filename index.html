@@ -73,7 +73,48 @@ function makeHooks(){let t=val('hookTopic'),a=val('hookAudience')||'your audienc
 ].join('\n\n')+platformContext())}
 function makeIdeas(){let n=val('ideaNiche'),f=val('ideaFormat');if(!need(n,'your channel topic'))return;let forms=['A beginner’s guide to {n}','3 common mistakes people make with {n}','One small change that can improve your {n}','What I would do first if I were starting {n} today','Myth vs. fact: what people get wrong about {n}','A simple checklist for better {n}','Answering the most common question about {n}','Before you try {n}, know this'];show('ideaOut',forms.map((x,i)=>(i+1)+'. '+x.replaceAll('{n}',n)+(f==='Short-form vertical video'?' — Short-form idea':'')).join('\n')+platformContext())}
 function makeTitles(){let t=val('titleTopic'),s=val('titleStyle');if(!need(t,'your video topic'))return;let a=s==='How-to'?['How to '+t,'A simple step-by-step guide to '+t,'Start here: '+t]:s==='List'?['5 things to know about '+t,'3 simple ways to approach '+t,'The beginner’s checklist for '+t]:s==='Direct and simple'?[t,'A practical guide to '+t,'What you need to know about '+t]:['The small detail about '+t+' people often miss','I tried a simpler approach to '+t,'Could this make '+t+' easier?'];show('titleOut',a.map((x,i)=>(i+1)+'. '+x).join('\n')+platformContext())}
-function makePlan(){let n=val('planNiche'),g=val('planGoal');if(!need(n,'your channel topic'))return;let days=['Quick tip','Common mistake','Myth vs. fact','Step-by-step demo','A question people ask','Personal lesson or relatable moment','Weekly recap / top 3 takeaways'];show('planOut',days.map((d,i)=>'Day '+(i+1)+' — '+d+'\nAngle: Create a useful piece of content about '+n+'. Tailor the format and caption to '+selectedPlatform()+'.').join('\n\n')+'\n\nGoal: '+g+'. Keep the opening clear, deliver one main idea, and end with a natural next step. Review performance after posting and repeat topics that genuinely connect.'+platformContext())}
+function makePlan(){let n=val('planNiche'),g=val('planGoal'),p=selectedPlatform();if(!need(n,'your channel topic'))return;
+const plans={
+YouTube:[
+['Shorts: one useful tip','Open with the problem, show one practical solution, and finish with a clear takeaway.'],
+['Search-friendly answer','Answer one specific beginner question about '+n+'. Say the question early and explain the answer clearly.'],
+['Quick demonstration','Show the steps on camera or with clear visuals; use concise on-screen labels.'],
+['Mistake to avoid','Explain one common mistake related to '+n+' and demonstrate a better approach.'],
+['Myth check','Choose one widely repeated belief about '+n+' and carefully explain what is accurate.'],
+['Mini-series episode','Make a follow-up to an earlier topic and tell viewers what the next episode will cover.'],
+['Top-three recap','Summarize the three most useful points from the week and invite viewers to subscribe for more.']
+],
+TikTok:[
+['POV or relatable moment','Start with a recognizable situation about '+n+', then reveal a practical or funny payoff quickly.'],
+['Fast tip with a strong opening','Put the result or biggest benefit in the first line, then show one quick action viewers can try.'],
+['Before-and-after story','Show the starting situation, the change you made, and the result without exaggerating.'],
+['Reply to a question','Turn a real audience question about '+n+' into a direct video answer.'],
+['Three quick things','Use quick cuts or numbered on-screen text to deliver three tightly related points.'],
+['Personal experience','Tell a short, specific story about learning or trying something related to '+n+'.'],
+['Part-two or recap','Continue the best-performing topic from the week or recap the most useful tip; invite viewers to comment with a question.']
+],
+Instagram:[
+['Saveable Reel tip','Create a clean visual tip about '+n+' with readable on-screen text; encourage viewers to save it.'],
+['Aesthetic step-by-step','Use clear close-ups or simple demonstrations, with one short instruction per shot.'],
+['Common mistake Reel','Show the mistake first, then the improved approach; make the contrast easy to understand.'],
+['Shareable mini-list','Present three useful reminders about '+n+' in a visually consistent sequence.'],
+['Behind-the-scenes','Show how you prepare, practice, or use something related to '+n+'. Keep it authentic.'],
+['Personal story Reel','Share a brief relatable moment and the lesson it taught you about '+n+'.'],
+['Weekly highlights','Recap the best tip of the week and ask viewers which related topic they want next.']
+],
+Facebook:[
+['Relatable opening','Start with an everyday situation connected to '+n+' and offer one helpful takeaway.'],
+['Practical tip video','Explain one useful action in plain language and add captions so the message is easy to follow.'],
+['Question-led video','Ask a genuine question about '+n+', then share your own helpful answer.'],
+['Simple demonstration','Show the process clearly, one step at a time, with enough context for someone new to the topic.'],
+['Common misconception','Explain one misconception about '+n+' in a calm, easy-to-share format.'],
+['Community story','Share a relatable experience or lesson and invite people to share their own experiences.'],
+['Weekly roundup','Summarize the most useful ideas from the week and ask which one people found most helpful.']
+]};
+const ctas={YouTube:'Invite viewers to subscribe or watch a related video.',TikTok:'Invite viewers to follow or leave a relevant question in the comments.',Instagram:'Invite viewers to save or share the Reel if it may help someone.',Facebook:'Invite viewers to share their experience or join the discussion.'};
+const formats={YouTube:'YouTube Shorts',TikTok:'TikTok short video',Instagram:'Instagram Reel',Facebook:'Facebook short video'};
+const days=plans[p]||plans.YouTube;
+show('planOut','PLATFORM: '+p+'\nSuggested format: '+formats[p]+'\nMain goal: '+g+'\n\n'+days.map((d,i)=>'Day '+(i+1)+' — '+d[0]+'\nConcept: '+d[1]+'\nCall to action: '+ctas[p]).join('\n\n')+'\n\nWeekly check-in: Review which topics earned meaningful watch time, comments, saves, shares, or follows. Repeat what genuinely connected and test a new angle next week.'+platformContext())}
 function makeDescription(){let t=val('descTopic'),c=val('descChannel'),k=val('descKeyword')||t,p=selectedPlatform();if(!need(t,'your video topic'))return;let intro=p==='YouTube'?'In this video, we explore ':p==='Facebook'?'Here is a useful look at ':'Take a look at ';let cta=p==='YouTube'?'If this was helpful, subscribe for more practical videos.':p==='TikTok'?'Follow for more quick, useful ideas.':p==='Instagram'?'Save this post for later and follow for more ideas.':'Share your experience in the comments and follow the page for more.';let tags='#'+k.replace(/[^a-z0-9 ]/gi,'').trim().split(/\s+/).filter(Boolean).join(' #');let platformTags=p==='TikTok'?' #TikTokTips':p==='Instagram'?' #InstagramReels #ReelsTips':p==='Facebook'?' #FacebookVideo':' #YouTubeTips';show('descOut',(c?(p==='YouTube'?'Welcome to '+c+'!\n\n':'From '+c+':\n\n'):'')+intro+t+'. You’ll find practical ideas and clear steps to consider and adapt to your own situation.\n\n'+cta+'\n\n'+tags+platformTags+platformContext())}
 function makePrompt(){let t=val('promptTopic'),a=val('promptAudience')||'general viewers',l=val('promptLength'),tone=val('promptTone');if(!need(t,'a video topic'))return;show('promptOut','Write an original '+l+' about: '+t+'.\n\nAudience: '+a+'.\nTone: '+tone+'.\n\nRequirements:\n- Start with a strong, specific hook in the first 2 seconds.\n- Deliver useful information; avoid filler and generic statements.\n- Use natural spoken language and short, clear sentences.\n- Organize the script into a clear beginning, middle, and ending.\n- Include scene-by-scene visual suggestions and on-screen captions.\n- Keep narration and captions synchronized.\n- Do not invent statistics, testimonials, or factual claims. Flag anything that needs verification.\n- End with a natural call to action, not a pushy sales pitch.\n\nReturn the complete script, scene directions, and caption text.'+platformContext())}
 
