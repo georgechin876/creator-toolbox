@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://georgechin876.github.io/creator-toolbox/sitemap.xml
